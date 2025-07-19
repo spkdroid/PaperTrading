@@ -1,97 +1,163 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Here's a professional **README.md** file for your **React Native Paper Trading App** project:
 
-# Getting Started
+---
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+````markdown
+# 📈 PaperTradingApp
 
-## Step 1: Start Metro
+A React Native application for **paper trading** using real-time stock prices. Users can simulate buying and selling stocks, track trade history, and monitor portfolio performance — all without spending real money.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 🚀 Features
 
-```sh
-# Using npm
+- 📊 Real-time stock price dashboard
+- 🛒 Simulated Buy/Sell trades
+- 💼 Portfolio with trade history
+- 🔁 Persistent storage using AsyncStorage
+- 💹 Track profit/loss and balance updates (coming soon)
+
+---
+
+## 📱 Screenshots
+
+*(Include relevant screenshots here if available)*
+
+---
+
+## 🧠 Technologies Used
+
+- React Native (v0.73+)
+- TypeScript
+- React Navigation
+- Axios for API requests
+- AsyncStorage for persistent storage
+
+---
+
+## 📦 Installation
+
+### Prerequisites
+
+- Node.js >= 16.x
+- Android Studio with emulator or Android device
+- React Native CLI
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/PaperTradingApp.git
+cd PaperTradingApp
+````
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start Metro bundler
+
+```bash
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Build and run your app
+### 4. Run the app on Android
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npx react-native run-android
 ```
 
-### iOS
+---
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## 📁 Project Structure
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```
+PaperTradingApp/
+├── App.tsx                      # App entry point
+├── api/                         # API logic
+│   └── stockApi.ts              # Fetch stock prices
+├── components/                  # UI components
+│   ├── StockCard.tsx
+│   └── PortfolioItem.tsx
+├── screens/                     # App screens
+│   ├── DashboardScreen.tsx
+│   ├── TradeScreen.tsx
+│   └── PortfolioScreen.tsx
+├── navigation/                  # Navigation setup
+│   └── AppNavigator.tsx
+├── types/                       # TypeScript interfaces
+│   └── index.ts
+├── utils/                       # Utility functions
+│   └── Storage.ts               # AsyncStorage helpers
+├── package.json
+└── tsconfig.json
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+## 📈 Stock Price API
+
+This app fetches real-time data from:
+
+```
+https://spkdroid.com/stock/api.php
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+The API returns:
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+```json
+{
+  "stocks": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 199.88,
+      ...
+    },
+    ...
+  ],
+  "metadata": {
+    "last_updated": "...",
+    "next_update": "..."
+  }
+}
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 🔐 Storage
 
-## Step 3: Modify your app
+Trade data is saved locally using **AsyncStorage** in the form:
 
-Now that you have successfully run the app, let's make changes!
+```ts
+interface Trade {
+  symbol: string;
+  name: string;
+  price: number;
+  quantity: number;
+  type: 'BUY' | 'SELL';
+  date: string;
+}
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+---
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 🧪 Coming Soon
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+* ✅ Profit/Loss summary screen
+* ✅ Balance updates (starting from \$10,000)
+* 📉 Charting and analysis
+* 💬 Transaction confirmation modals
 
-## Congratulations! :tada:
+---
 
-You've successfully run and modified your React Native App. :partying_face:
+## 📚 License
 
-### Now what?
+MIT License — feel free to use and contribute.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+---
 
-# Troubleshooting
+## 👨‍💻 Author
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Ramkumar Velmurugan** – [spkdroid.com](https://spkdroid.com)
