@@ -1,13 +1,6 @@
-Here's a professional **README.md** file for your **React Native Paper Trading App** project:
-
----
-
-````markdown
 # 📈 PaperTradingApp
 
 A React Native application for **paper trading** using real-time stock prices. Users can simulate buying and selling stocks, track trade history, and monitor portfolio performance — all without spending real money.
-
----
 
 ## 🚀 Features
 
@@ -17,13 +10,11 @@ A React Native application for **paper trading** using real-time stock prices. U
 - 🔁 Persistent storage using AsyncStorage
 - 💹 Track profit/loss and balance updates (coming soon)
 
----
 
 ## 📱 Screenshots
 
 *(Include relevant screenshots here if available)*
 
----
 
 ## 🧠 Technologies Used
 
@@ -32,8 +23,6 @@ A React Native application for **paper trading** using real-time stock prices. U
 - React Navigation
 - Axios for API requests
 - AsyncStorage for persistent storage
-
----
 
 ## 📦 Installation
 
@@ -68,8 +57,6 @@ npm start
 npx react-native run-android
 ```
 
----
-
 ## 📁 Project Structure
 
 ```
@@ -93,8 +80,6 @@ PaperTradingApp/
 ├── package.json
 └── tsconfig.json
 ```
-
----
 
 ## 📈 Stock Price API
 
@@ -141,8 +126,6 @@ interface Trade {
 }
 ```
 
----
-
 ## 🧪 Coming Soon
 
 * ✅ Profit/Loss summary screen
@@ -150,13 +133,10 @@ interface Trade {
 * 📉 Charting and analysis
 * 💬 Transaction confirmation modals
 
----
-
 ## 📚 License
 
 MIT License — feel free to use and contribute.
 
----
 
 ## 👨‍💻 Author
 
