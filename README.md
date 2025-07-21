@@ -13,7 +13,12 @@ A React Native application for **paper trading** using real-time stock prices. U
 
 ## 📱 Screenshots
 
-*(Include relevant screenshots here if available)*
+Here are a few screenshots showcasing key features of the app:
+
+| Home Screen |
+|-------------|
+| <img src="Screenshot1.png" width="300"/> |
+
 
 
 ## 🧠 Technologies Used
