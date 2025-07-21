@@ -1,8 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
 
 const StockCard = ({ stock }) => {
   return (
+    <TouchableOpacity 
+      onPress={() => onPress(stock)}
+      style={styles.card}>
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.symbol}>{stock.symbol}</Text>
@@ -13,6 +16,7 @@ const StockCard = ({ stock }) => {
         Updated: {new Date(stock.lastUpdated).toLocaleTimeString()}
       </Text>
     </View>
+    </TouchableOpacity>
   );
 };
 

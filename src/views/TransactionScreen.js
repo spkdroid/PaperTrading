@@ -1,81 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import TransactionForm from '../components/TransactionForm';
-import DashboardViewModel from '../viewmodels/DashboardViewModel';
 
-const TransactionScreen = observer(({ route, navigation, portfolioViewModel }) => {
-  const { symbol } = route.params;
-  const [dashboardVM] = useState(() => new DashboardViewModel());
-  const [stock, setStock] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchStockData = async () => {
-      try {
-        await dashboardVM.loadStocks();
-        const foundStock = dashboardVM.getStockBySymbol(symbol);
-        setStock(foundStock);
-      } catch (error) {
-        Alert.alert('Error', 'Failed to load stock data');
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchStockData();
-  }, [symbol]);
-
-  const handleTransaction = (type, quantity) => {
-    try {
-      if (type === 'buy') {
-        portfolioViewModel.buyStock(stock, quantity);
-      } else {
-        portfolioViewModel.sellStock(stock, quantity);
-      }
-      Alert.alert(
-        'Success',
-        `${type === 'buy' ? 'Bought' : 'Sold'} ${quantity} shares of ${stock.symbol}`,
-        [{ text: 'OK', onPress: () => navigation.goBack() }]
-      );
-    } catch (error) {
-      Alert.alert('Transaction Failed', error.message);
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
-        <Text>Loading stock data...</Text>
-      </View>
-    );
-  }
-
-  if (!stock) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>Stock not found</Text>
-      </View>
-    );
-  }
-
+const TransactionHistoryScreen = observer(({ transactionsViewModel }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.symbol}>{stock.symbol}</Text>
-        <Text style={styles.companyName}>{stock.name}</Text>
-        <Text style={styles.currentPrice}>${stock.price.toFixed(2)}</Text>
-      </View>
-
-      <TransactionForm
-        stock={stock}
-        onSubmit={handleTransaction}
-        onCancel={() => navigation.goBack()}
-        maxQuantity={
-          portfolioViewModel.portfolio.find(item => item.symbol === stock.symbol)?.quantity || 0
-        }
+      <FlatList
+        data={transactionsViewModel.transactions}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={[
+            styles.transactionItem,
+            item.type === 'buy' ? styles.buyTransaction : styles.sellTransaction
+          ]}>
+            <Text style={styles.symbol}>{item.symbol}</Text>
+            <Text>{item.type.toUpperCase()} - {item.quantity} shares</Text>
+            <Text>Price: ${item.price.toFixed(2)}</Text>
+            <Text>Total: ${item.total.toFixed(2)}</Text>
+            <Text style={styles.date}>
+              {new Date(item.date).toLocaleString()}
+            </Text>
+          </View>
+        )}
       />
     </View>
   );
@@ -84,41 +30,32 @@ const TransactionScreen = observer(({ route, navigation, portfolioViewModel }) =
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f5f5f5',
+    padding: 10,
   },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  transactionItem: {
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 8,
   },
-  header: {
-    marginBottom: 20,
-    alignItems: 'center',
+  buyTransaction: {
+    backgroundColor: '#e6f7ee',
+    borderLeftWidth: 4,
+    borderLeftColor: '#2ecc71',
+  },
+  sellTransaction: {
+    backgroundColor: '#ffebee',
+    borderLeftWidth: 4,
+    borderLeftColor: '#e74c3c',
   },
   symbol: {
-    fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
-  },
-  companyName: {
     fontSize: 16,
+  },
+  date: {
     color: '#666',
-    marginVertical: 5,
-    textAlign: 'center',
-  },
-  currentPrice: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2ecc71',
-    marginTop: 10,
-  },
-  errorText: {
-    fontSize: 18,
-    color: '#e74c3c',
-    textAlign: 'center',
-    marginTop: 20,
+    fontSize: 12,
+    marginTop: 5,
   },
 });
 
-export default TransactionScreen;
+export default TransactionHistoryScreen;
